@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.tzsbproject.mapper.PowerMapper">
+	 <select id="findAll" resultType="com.bw.tzsbproject.pojo.Elev">
+          select *  from t_productionunit p
+          <where>
+             <if test="product!=null and product!=''">
+                 and p.productionunit_id like "%${product}%"
+			 </if>
+			  <if test="bianhao!=null and bianhao!=''">
+				  and p.productionunit_permit like "%${bianhao}%"
+			  </if>
+		  </where>
+		  limit #{pageUtil.startIndex},#{pageUtil.pageSize}
+	 </select>
+
+
+	<select id="getCount" resultType="int">
+		select count(*) from t_productionunit p
+		<where>
+			<if test="product!=null and product!=''">
+				and p.productionunit_id like "%${product}%"
+			</if>
+			<if test="bianhao!=null and bianhao!=''">
+				and p.productionunit_permit like "%${bianhao}%"
+			</if>
+		</where>
+	</select>
+</mapper>
